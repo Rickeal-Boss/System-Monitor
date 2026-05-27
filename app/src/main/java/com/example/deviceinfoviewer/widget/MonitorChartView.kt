@@ -39,9 +39,6 @@ class MonitorChartView @JvmOverloads constructor(
         private const val COLOR_GRID = 0xFF30363D.toInt()
         private const val COLOR_AXIS = 0xFF484F58.toInt()
         private const val DEFAULT_CHART_COLOR = 0xFFFF9800.toInt()
-
-        private fun dp(dp: Float, ctx: Context): Int =
-            (dp * ctx.resources.displayMetrics.density).toInt()
     }
 
     private var tvTitle: TextView? = null
@@ -78,7 +75,7 @@ class MonitorChartView @JvmOverloads constructor(
                 err.text = "图表加载失败"
                 err.setTextColor(COLOR_TEXT_SECONDARY)
                 err.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                val p: Int = dp(16, ctx)
+                val p = (16f * ctx.resources.displayMetrics.density).toInt()
                 err.setPadding(p, p, p, p)
                 addView(err)
             } catch (_: Throwable) {}
@@ -89,8 +86,8 @@ class MonitorChartView @JvmOverloads constructor(
         val headerRow = LinearLayout(ctx).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            val p4: Int = dp(4, ctx)
-            val p2: Int = dp(2, ctx)
+            val p4 = (4f * ctx.resources.displayMetrics.density).toInt()
+            val p2 = (2f * ctx.resources.displayMetrics.density).toInt()
             setPadding(p4, p4, p4, p2)
         }
 
@@ -118,7 +115,7 @@ class MonitorChartView @JvmOverloads constructor(
     private fun buildChart(ctx: Context): LineChart =
         LineChart(ctx).apply {
             id = View.generateViewId()
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp(130, ctx).toInt())
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, (130f * ctx.resources.displayMetrics.density).toInt())
             addView(this)
         }
 
