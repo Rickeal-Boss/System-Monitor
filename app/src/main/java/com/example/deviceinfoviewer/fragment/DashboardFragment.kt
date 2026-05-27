@@ -143,7 +143,7 @@ class DashboardFragment : Fragment() {
         }
 
         // 历史趋势
-        chartHistory?.setData("CPU温度", repo!!.getHistoryCache().getSeries("cpu_temp"))
+        chartHistory?.setData("CPU温度", repo!!.historyCache.getSeries("cpu_temp"))
 
         cardRam?.setOnClickListener { showZramDialog() }
         swipeRefresh?.setOnRefreshListener {
@@ -180,7 +180,7 @@ class DashboardFragment : Fragment() {
 
     private fun updateChart() {
         repo ?: return
-        chartHistory?.setData("CPU温度", repo!!.getHistoryCache().getSeries("cpu_temp"))
+        chartHistory?.setData("CPU温度", repo!!.historyCache.getSeries("cpu_temp"))
     }
 
     private fun getProgressColor(pct: Int): ColorStateList {

@@ -39,6 +39,9 @@ class MonitorChartView @JvmOverloads constructor(
         private const val COLOR_GRID = 0xFF30363D.toInt()
         private const val COLOR_AXIS = 0xFF484F58.toInt()
         private const val DEFAULT_CHART_COLOR = 0xFFFF9800.toInt()
+
+        private fun dp(dp: Float, ctx: Context): Int =
+            (dp * ctx.resources.displayMetrics.density).toInt()
     }
 
     private var tvTitle: TextView? = null
@@ -265,9 +268,4 @@ class MonitorChartView @JvmOverloads constructor(
     }
 
     fun clear() = lineChart?.clear()
-
-    companion object {
-        private fun dp(dp: Float, ctx: Context): Int =
-            (dp * ctx.resources.displayMetrics.density).toInt()
-    }
 }

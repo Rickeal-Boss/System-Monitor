@@ -142,7 +142,7 @@ class BatteryFragment : Fragment() {
 
     private fun updateCharts() {
         repo ?: return
-        chartPower?.setData(repo!!.getHistoryCache().getSeries("battery_power"))
-        chartTemp?.setData(repo!!.getHistoryCache().getSeries("battery_temp"))
+        chartPower?.setData(repo!!.historyCache.getSeries("battery_power"))
+        chartTemp?.setData(repo!!.historyCache.getSeries("battery_temp"))
     }
 }

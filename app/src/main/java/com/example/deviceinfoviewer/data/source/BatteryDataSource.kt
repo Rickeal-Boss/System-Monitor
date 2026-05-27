@@ -25,7 +25,7 @@ class BatteryDataSource(private val context: Context) {
         info.timestamp = System.currentTimeMillis()
 
         // 双电芯开关
-        info.isDualCell = AppSettings.getInstance(appContext).isDualCellBattery
+        info.dualCell = AppSettings.getInstance(appContext).dualCellBattery
 
         val ifilter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         val batteryStatus = appContext.registerReceiver(null, ifilter)
@@ -66,7 +66,7 @@ class BatteryDataSource(private val context: Context) {
         info.health = healthToString(health)
 
         // === 电池技术 ===
-        info.technology = batteryStatus.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY)
+        info.technology = batteryStatus.getStringExtra(BatteryManager.EXTRA_TECHNOLOGY) ?: ""
 
         // === 容量 (BatteryManager + sysfs) ===
         val bm = appContext.getSystemService(Context.BATTERY_SERVICE) as? BatteryManager

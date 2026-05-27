@@ -227,7 +227,7 @@ class CpuFragment : Fragment() {
 
     private fun updateCharts() {
         if (repo == null || chartCpuTemp == null) return
-        val data: List<HistoryDataPoint>? = repo!!.getHistoryCache().getSeries("cpu_temp")
+        val data: List<HistoryDataPoint>? = repo!!.historyCache.getSeries("cpu_temp")
         if (!data.isNullOrEmpty()) chartCpuTemp?.setData(data)
     }
 

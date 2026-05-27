@@ -153,9 +153,9 @@ class GpuFragment : Fragment() {
 
     private fun updateCharts() {
         repo ?: return
-        val loadData: List<HistoryDataPoint>? = repo!!.getHistoryCache().getSeries("gpu_load")
+        val loadData: List<HistoryDataPoint>? = repo!!.historyCache.getSeries("gpu_load")
         if (!loadData.isNullOrEmpty()) chartGpuLoad?.setData(loadData)
-        val tempData: List<HistoryDataPoint>? = repo!!.getHistoryCache().getSeries("gpu_temp")
+        val tempData: List<HistoryDataPoint>? = repo!!.historyCache.getSeries("gpu_temp")
         if (!tempData.isNullOrEmpty()) chartGpuTemp?.setData(tempData)
     }
 }

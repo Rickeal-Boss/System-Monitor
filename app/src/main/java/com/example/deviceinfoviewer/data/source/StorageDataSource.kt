@@ -22,7 +22,8 @@ class StorageDataSource {
         info.internalUsedBytes = usedBytes
         info.internalAvailableBytes = availableBytes
 
-        info.partitions = getPartitions()
+        info.partitions.clear()
+        info.partitions.addAll(getPartitions())
 
         return info
     }

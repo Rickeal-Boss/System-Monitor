@@ -44,8 +44,8 @@ class GpsDataSource(private val context: Context) {
             locationListener = object : LocationListener {
                 override fun onLocationChanged(location: Location) {
                     val info = GpsStatusInfo()
-                    info.isGpsEnabled = true
-                    info.isFixAcquired = true
+                    info.gpsEnabled = true
+                    info.fixAcquired = true
                     info.latitude = location.latitude
                     info.longitude = location.longitude
                     info.accuracy = location.accuracy
@@ -61,7 +61,7 @@ class GpsDataSource(private val context: Context) {
                 gnssCallback = object : GnssStatus.Callback() {
                     override fun onSatelliteStatusChanged(status: GnssStatus) {
                         val info = GpsStatusInfo()
-                        info.isGpsEnabled = true
+                        info.gpsEnabled = true
                         info.satelliteCount = status.satelliteCount
                         val satellites = mutableListOf<GpsSatelliteInfo>()
                         var usedCount = 0
@@ -74,12 +74,12 @@ class GpsDataSource(private val context: Context) {
                             sat.snr = status.getCn0DbHz(i)
                             sat.elevation = status.getElevationDegrees(i)
                             sat.azimuth = status.getAzimuthDegrees(i)
-                            sat.isUsedInFix = status.usedInFix(i)
+                            sat.usedInFix = status.usedInFix(i)
                             if (status.usedInFix(i)) usedCount++
                             satellites.add(sat)
                         }
                         info.satellites = satellites
-                        info.isFixAcquired = usedCount > 0
+                        info.fixAcquired = usedCount > 0
                         callback.onGpsStatusUpdate(info)
                     }
                 }
@@ -96,7 +96,7 @@ class GpsDataSource(private val context: Context) {
                         val gpsStatus = lm.getGpsStatus(null) ?: return@Listener
 
                         val info = GpsStatusInfo()
-                        info.isGpsEnabled = true
+                        info.gpsEnabled = true
                         info.satelliteCount = gpsStatus.maxSatellites
 
                         val satellites = mutableListOf<GpsSatelliteInfo>()
@@ -109,12 +109,12 @@ class GpsDataSource(private val context: Context) {
                             si.snr = sat.snr
                             si.elevation = sat.elevation
                             si.azimuth = sat.azimuth
-                            si.isUsedInFix = sat.usedInFix()
+                            si.usedInFix = sat.usedInFix()
                             if (sat.usedInFix()) usedCount++
                             satellites.add(si)
                         }
                         info.satellites = satellites
-                        info.isFixAcquired = usedCount > 0
+                        info.fixAcquired = usedCount > 0
                         callback.onGpsStatusUpdate(info)
                     } catch (_: Exception) {}
                 }
@@ -127,7 +127,7 @@ class GpsDataSource(private val context: Context) {
         } catch (_: SecurityException) {
             // 权限未授予
             val info = GpsStatusInfo()
-            info.isGpsEnabled = false
+            info.gpsEnabled = false
             callback.onGpsStatusUpdate(info)
         }
     }
