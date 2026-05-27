@@ -21,15 +21,16 @@
             android:layout_height="wrap_content"
             android:text="@string/na"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/text_small" />
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium" />
 
         <TextView
             android:id="@+id/tv_float_cpu_freq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/na"
-            android:textColor="#CCFFFFFF"
-            android:textSize="@dimen/text_small" />
+            android:textColor="#B0FFFFFF"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_float_battery"
@@ -37,15 +38,16 @@
             android:layout_height="wrap_content"
             android:text="@string/na"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/text_small" />
+            android:textSize="13sp"
+            android:fontFamily="sans-serif-medium" />
 
         <TextView
             android:id="@+id/tv_float_ram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/na"
-            android:textColor="#CCFFFFFF"
-            android:textSize="@dimen/text_small" />
+            android:textColor="#B0FFFFFF"
+            android:textSize="12sp" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
