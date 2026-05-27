@@ -136,7 +136,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== Cluster / Per Core 切换（橙色主题） ===== -->
+        <!-- ===== 核心频率（Per Core） ===== -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,58 +153,33 @@
                 android:orientation="vertical"
                 android:padding="14dp">
 
-                <!-- 切换按钮 -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginBottom="12dp"
-                    android:background="#1AFFFFFF">
-
-                    <TextView
-                        android:id="@+id/tab_cluster"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Per cluster"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:background="@drawable/bg_tab_left"
-                        android:backgroundTint="@color/cpu_color"
-                        android:textColor="@android:color/white"
-                        android:fontFamily="sans-serif-medium"
-                        android:clickable="true"
-                        android:focusable="true" />
-
-                    <TextView
-                        android:id="@+id/tab_per_core"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Per core"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:background="@drawable/bg_tab_right"
-                        android:textColor="@color/text_on_dark_secondary"
-                        android:clickable="true"
-                        android:focusable="true" />
-                </LinearLayout>
-
-                <!-- Cluster 视图容器 -->
-                <LinearLayout
-                    android:id="@+id/cluster_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
 
-                <!-- Per Core 视图容器 -->
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="18dp"
+                        android:background="@color/cpu_color"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="核心频率"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/per_core_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone" />
+                    android:orientation="vertical" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
