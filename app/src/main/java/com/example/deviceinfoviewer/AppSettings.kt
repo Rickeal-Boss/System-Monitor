@@ -54,4 +54,21 @@ class AppSettings private constructor(context: Context) {
     var dualCellBattery: Boolean
         get() = prefs.getBoolean("dual_cell_battery", false)
         set(value) = prefs.edit { putBoolean("dual_cell_battery", value) }
+
+    // 悬浮窗单项显示开关（默认全部显示）
+    var showCpuTemp: Boolean
+        get() = prefs.getBoolean("show_cpu_temp", true)
+        set(value) = prefs.edit { putBoolean("show_cpu_temp", value) }
+
+    var showCpuFreq: Boolean
+        get() = prefs.getBoolean("show_cpu_freq", true)
+        set(value) = prefs.edit { putBoolean("show_cpu_freq", value) }
+
+    var showBattery: Boolean
+        get() = prefs.getBoolean("show_battery", true)
+        set(value) = prefs.edit { putBoolean("show_battery", value) }
+
+    var showRam: Boolean
+        get() = prefs.getBoolean("show_ram", true)
+        set(value) = prefs.edit { putBoolean("show_ram", value) }
 }

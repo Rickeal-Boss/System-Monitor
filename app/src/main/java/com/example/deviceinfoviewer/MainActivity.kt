@@ -35,7 +35,10 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "System Monitor"
-        ViewCompat.setOnApplyWindowInsetsListener(toolbar) { v, insets ->
+
+        // 将 status bar 内边距应用到 CoordinatorLayout 根布局，避免 Toolbar/TabLayout 重叠
+        val root = findViewById<androidx.coordinatorlayout.widget.CoordinatorLayout>(R.id.root_layout)
+        ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
             val top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
             v.setPadding(0, top, 0, 0)
             insets

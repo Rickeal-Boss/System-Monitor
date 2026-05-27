@@ -92,6 +92,12 @@ class FloatingWindowService : Service() {
         tvBattery?.text = "电池: --%"
         tvRam?.text = "RAM: --%"
 
+        // 从设置恢复各项显示状态
+        tvCpuTemp?.visibility = if (settings.showCpuTemp) View.VISIBLE else View.GONE
+        tvCpuFreq?.visibility = if (settings.showCpuFreq) View.VISIBLE else View.GONE
+        tvBattery?.visibility = if (settings.showBattery) View.VISIBLE else View.GONE
+        tvRam?.visibility = if (settings.showRam) View.VISIBLE else View.GONE
+
         // 设置透明度
         floatingView?.alpha = settings.floatingWindowOpacity
 
@@ -262,22 +268,26 @@ class FloatingWindowService : Service() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
-        cbCpuTemp.isChecked = tvCpuTemp?.visibility == View.VISIBLE
-        cbCpuFreq.isChecked = tvCpuFreq?.visibility == View.VISIBLE
-        cbBattery.isChecked = tvBattery?.visibility == View.VISIBLE
-        cbRam.isChecked = tvRam?.visibility == View.VISIBLE
+        cbCpuTemp.isChecked = settings.showCpuTemp
+        cbCpuFreq.isChecked = settings.showCpuFreq
+        cbBattery.isChecked = settings.showBattery
+        cbRam.isChecked = settings.showRam
 
         cbCpuTemp.setOnCheckedChangeListener { _, checked ->
             tvCpuTemp?.visibility = if (checked) View.VISIBLE else View.GONE
+            settings.showCpuTemp = checked
         }
         cbCpuFreq.setOnCheckedChangeListener { _, checked ->
             tvCpuFreq?.visibility = if (checked) View.VISIBLE else View.GONE
+            settings.showCpuFreq = checked
         }
         cbBattery.setOnCheckedChangeListener { _, checked ->
             tvBattery?.visibility = if (checked) View.VISIBLE else View.GONE
+            settings.showBattery = checked
         }
         cbRam.setOnCheckedChangeListener { _, checked ->
             tvRam?.visibility = if (checked) View.VISIBLE else View.GONE
+            settings.showRam = checked
         }
 
         builder.setView(dialogView)
