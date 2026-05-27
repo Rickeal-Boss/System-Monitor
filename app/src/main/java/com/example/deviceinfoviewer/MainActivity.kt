@@ -110,4 +110,15 @@ class MainActivity : AppCompatActivity() {
             startService(intent)
         }
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 200) {
+            // 从系统悬浮窗权限设置返回：检查权限，已授予则启动悬浮窗
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this)) {
+                startFloatingWindow()
+            }
+        }
+    }
 }
