@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- CPU 核心 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp">
+                <View android:layout_width="4dp" android:layout_height="18dp"
+                    android:background="@color/cpu_color" android:layout_marginEnd="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CPU 核心"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_on_dark"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cpu_cores_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="@color/divider_dark"
+                android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
+
+            <!-- GPU -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp">
+                <View android:layout_width="4dp" android:layout_height="18dp"
+                    android:background="@color/gpu_color" android:layout_marginEnd="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GPU"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_on_dark"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/card_bg_dark">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="型号" />
+                        <TextView android:id="@+id/tv_gpu_model" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="厂商" />
+                        <TextView android:id="@+id/tv_gpu_vendor" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="频率" />
+                        <TextView android:id="@+id/tv_gpu_freq" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="温度" />
+                        <TextView android:id="@+id/tv_gpu_temp" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="负载" />
+                        <TextView android:id="@+id/tv_gpu_load" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="频率范围" />
+                        <TextView android:id="@+id/tv_gpu_freq_range" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="调速器" />
+                        <TextView android:id="@+id/tv_gpu_governor" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+                    <LinearLayout style="@style/DetailRow">
+                        <TextView style="@style/DetailLabel" android:text="渲染器" />
+                        <TextView android:id="@+id/tv_gpu_renderer" style="@style/DetailValue" android:text="@string/na" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="@color/divider_dark"
+                android:layout_marginTop="12dp" android:layout_marginBottom="12dp" />
+
+            <!-- 传感器 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp">
+                <View android:layout_width="4dp" android:layout_height="18dp"
+                    android:background="@color/network_color" android:layout_marginEnd="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="传感器"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_on_dark"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_sensors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

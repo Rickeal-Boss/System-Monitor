@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/floating_window_width"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_floating_window"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="@dimen/floating_window_corner"
+    app:cardBackgroundColor="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_small">
+
+        <TextView
+            android:id="@+id/tv_float_cpu_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/na"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_float_cpu_freq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/na"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_float_battery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/na"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_float_ram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/na"
+            android:textColor="#CCFFFFFF"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

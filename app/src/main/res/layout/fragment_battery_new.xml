@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:padding="8dp"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ===== 电池电量大卡片（绿色） ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_bg_dark"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_battery_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未充电"
+                    android:textColor="@color/text_on_dark_secondary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_battery_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="64%"
+                    android:textColor="@color/battery_color"
+                    android:textSize="64sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginTop="8dp" />
+
+                <ProgressBar
+                    android:id="@+id/pb_battery"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="220dp"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="12dp"
+                    android:max="100"
+                    android:progress="64"
+                    android:progressTint="@color/battery_color"
+                    android:progressBackgroundTint="#3A3F4B" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== 放电功率图表 ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_bg_dark"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="4dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="18dp"
+                        android:background="@color/battery_color"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:text="放电功率"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.example.deviceinfoviewer.widget.MonitorChartView
+                    android:id="@+id/chart_power"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== 电池温度图表 ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_bg_dark"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="4dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="18dp"
+                        android:background="@color/battery_color"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:text="电池温度"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.example.deviceinfoviewer.widget.MonitorChartView
+                    android:id="@+id/chart_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== 循环次数 + 容量双列 ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_bg_dark"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:text="循环次数"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_cycle_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 次"
+                        android:textColor="@color/text_on_dark"
+                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:text="当前容量"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_capacity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 mAh"
+                        android:textColor="@color/text_on_dark"
+                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ===== 电压 + 电流双列 ===== -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/card_bg_dark">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:text="电压"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_voltage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 mV"
+                        android:textColor="@color/text_on_dark"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:text="电流"
+                        android:textColor="@color/text_on_dark_secondary"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_current"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 mA"
+                        android:textColor="@color/text_on_dark"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

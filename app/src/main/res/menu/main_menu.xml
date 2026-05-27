@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_dark_mode"
+        android:title="@string/menu_dark_mode"
+        android:icon="@drawable/ic_dark_mode"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_export"
+        android:title="@string/menu_export"
+        android:icon="@drawable/ic_export"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_floating_window"
+        android:title="@string/menu_floating_window"
+        android:icon="@drawable/ic_float_window"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/menu_settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom" />
+</menu>

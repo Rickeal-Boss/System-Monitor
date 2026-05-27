@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== DevCheck Pro 风格色彩系统 ===== -->
+
+    <!-- 分类主题色 — 每个模块独立配色 -->
+    <color name="cpu_color">#FF9800</color>        <!-- CPU: 琥珀橙 -->
+    <color name="cpu_color_dark">#E65100</color>
+    <color name="cpu_color_light">#FFE0B2</color>
+    <color name="cpu_color_bg">#1AFF9800</color>   <!-- 10% alpha on dark bg -->
+
+    <color name="gpu_color">#AB47BC</color>        <!-- GPU: 紫色 -->
+    <color name="gpu_color_dark">#7B1FA2</color>
+    <color name="gpu_color_light">#E1BEE7</color>
+    <color name="gpu_color_bg">#1AAB47BC</color>
+
+    <color name="memory_color">#42A5F5</color>     <!-- 内存: 蓝色 -->
+    <color name="memory_color_dark">#1565C0</color>
+    <color name="memory_color_light">#BBDEFB</color>
+    <color name="memory_color_bg">#1A42A5F5</color>
+
+    <color name="battery_color">#66BB6A</color>    <!-- 电池: 绿色 -->
+    <color name="battery_color_dark">#388E3C</color>
+    <color name="battery_color_light">#C8E6C9</color>
+    <color name="battery_color_bg">#1A66BB6A</color>
+
+    <color name="network_color">#26C6DA</color>    <!-- 网络: 青色 -->
+    <color name="network_color_dark">#0097A7</color>
+    <color name="network_color_light">#B2EBF2</color>
+    <color name="network_color_bg">#1A26C6DA</color>
+
+    <color name="storage_color">#7E57C2</color>    <!-- 存储: 深紫 -->
+    <color name="storage_color_dark">#512DA8</color>
+    <color name="storage_color_light">#D1C4E9</color>
+    <color name="storage_color_bg">#1A7E57C2</color>
+
+    <color name="dashboard_accent">#FF7043</color> <!-- 仪表盘强调色: 深橙 -->
+
+    <!-- ===== Material 基础色（保留兼容） ===== -->
+    <color name="primary">#FF9800</color>
+    <color name="primary_dark">#E65100</color>
+    <color name="primary_light">#FFE0B2</color>
+    <color name="accent">#FF9800</color>
+    <color name="accent_light">#FFCC80</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <color name="secondary">#607D8B</color>
+    <color name="on_secondary">#FFFFFF</color>
+
+    <!-- ===== 深色主题专用 ===== -->
+    <color name="background">#F5F5F5</color>
+    <color name="background_dark">#0D1117</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_dark">#161B22</color>
+    <color name="card_bg_dark">#1C2333</color>
+    <color name="card_stroke_dark">#30363D</color>
+    <color name="app_bar_bg">#FF9800</color>
+    <color name="app_bar_bg_dark">#0D1117</color>
+
+    <!-- ===== 文字颜色 ===== -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#9E9E9E</color>
+    <color name="text_on_dark">#E6EDF3</color>
+    <color name="text_on_dark_secondary">#8B949E</color>
+    <color name="text_on_green">#FFFFFF</color>
+
+    <!-- ===== 卡片 ===== -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_stroke">#E0E0E0</color>
+
+    <!-- ===== 状态颜色 ===== -->
+    <color name="status_good">#4CAF50</color>
+    <color name="status_warning">#FF9800</color>
+    <color name="status_critical">#F44336</color>
+    <color name="status_info">#42A5F5</color>
+
+    <!-- ===== 图表专用色 ===== -->
+    <color name="chart_green">#4CAF50</color>
+    <color name="chart_green_fill">#804CAF50</color>
+    <color name="chart_green_fill_light">#334CAF50</color>
+    <color name="chart_cpu">#FF9800</color>
+    <color name="chart_cpu_fill">#40FF9800</color>
+    <color name="chart_gpu">#AB47BC</color>
+    <color name="chart_gpu_fill">#40AB47BC</color>
+    <color name="chart_ram">#42A5F5</color>
+    <color name="chart_ram_fill">#4042A5F5</color>
+    <color name="chart_battery">#66BB6A</color>
+    <color name="chart_battery_fill">#4066BB6A</color>
+    <color name="chart_network">#26C6DA</color>
+    <color name="chart_network_fill">#4026C6DA</color>
+    <color name="chart_blue">#42A5F5</color>
+    <color name="chart_storage">#7E57C2</color>
+
+    <!-- ===== 功能色 ===== -->
+    <color name="divider">#E0E0E0</color>
+    <color name="divider_dark">#30363D</color>
+    <color name="error">#D32F2F</color>
+    <color name="on_error">#FFFFFF</color>
+    <color name="ripple">#33FF9800</color>
+
+    <!-- ===== 仪表盘卡片渐变色 ===== -->
+    <color name="dashboard_cpu_bg">#FFF3E0</color>
+    <color name="dashboard_battery_bg">#E8F5E9</color>
+    <color name="dashboard_ram_bg">#E3F2FD</color>
+    <color name="dashboard_storage_bg">#EDE7F6</color>
+
+    <!-- ===== 渐变（用于圆形进度） ===== -->
+    <color name="gradient_green_start">#2E7D32</color>
+    <color name="gradient_green_end">#66BB6A</color>
+    <color name="gradient_orange_start">#E65100</color>
+    <color name="gradient_orange_end">#FF9800</color>
+    <color name="gradient_yellow">#FFC107</color>
+    <color name="gradient_red_start">#B71C1C</color>
+    <color name="gradient_red_end">#F44336</color>
+
+    <!-- ===== 开关选中色 ===== -->
+    <color name="switch_track_on">#FFCC80</color>
+    <color name="switch_thumb_on">#FF9800</color>
+</resources>

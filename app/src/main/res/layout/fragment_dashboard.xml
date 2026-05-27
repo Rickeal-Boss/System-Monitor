@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 2x2 卡片网格 — DevCheck Pro 风格 -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2"
+                android:layout_marginBottom="8dp">
+
+                <!-- ===== CPU 卡片（橙色） ===== -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_cpu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/card_bg_dark"
+                    app:strokeColor="#3D2200"
+                    app:strokeWidth="0dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="14dp">
+
+                        <!-- CPU 图标背景圆 -->
+                        <LinearLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_icon"
+                            android:backgroundTint="@color/cpu_color">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CPU"
+                                android:textColor="@android:color/white"
+                                android:textSize="10sp"
+                                android:fontFamily="sans-serif-medium" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_label_cpu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="处理器"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/tv_cpu_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/cpu_color"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:id="@+id/tv_cpu_freq"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="13sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:id="@+id/tv_gpu_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="GPU: N/A"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="4dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ===== 电池卡片（绿色） ===== -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_battery"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/card_bg_dark"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_icon"
+                            android:backgroundTint="@color/battery_color">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="BAT"
+                                android:textColor="@android:color/white"
+                                android:textSize="10sp"
+                                android:fontFamily="sans-serif-medium" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_label_battery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="电池"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/tv_battery_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/battery_color"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="2dp" />
+
+                        <TextView
+                            android:id="@+id/tv_battery_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="13sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="2dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ===== RAM 卡片（蓝色） ===== -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_ram"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/card_bg_dark"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_icon"
+                            android:backgroundTint="@color/memory_color">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="RAM"
+                                android:textColor="@android:color/white"
+                                android:textSize="10sp"
+                                android:fontFamily="sans-serif-medium" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_label_ram"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="内存"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/tv_ram_usage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/memory_color"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="2dp" />
+
+                        <ProgressBar
+                            android:id="@+id/pb_ram"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressTint="@color/memory_color"
+                            android:progressBackgroundTint="#3A3F4B" />
+
+                        <TextView
+                            android:id="@+id/tv_ram_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="4dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ===== 存储卡片（深紫） ===== -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_storage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:cardBackgroundColor="@color/card_bg_dark"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="14dp">
+
+                        <LinearLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_icon"
+                            android:backgroundTint="@color/storage_color">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ROM"
+                                android:textColor="@android:color/white"
+                                android:textSize="10sp"
+                                android:fontFamily="sans-serif-medium" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_label_storage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="存储"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="8dp" />
+
+                        <TextView
+                            android:id="@+id/tv_storage_usage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/storage_color"
+                            android:fontFamily="sans-serif-medium"
+                            android:layout_marginTop="2dp" />
+
+                        <ProgressBar
+                            android:id="@+id/pb_storage"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressTint="@color/storage_color"
+                            android:progressBackgroundTint="#3A3F4B" />
+
+                        <TextView
+                            android:id="@+id/tv_storage_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textSize="11sp"
+                            android:textColor="@color/text_on_dark_secondary"
+                            android:layout_marginTop="4dp" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </GridLayout>
+
+            <!-- 历史趋势卡片（全宽） -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/card_bg_dark"
+                app:strokeColor="@color/card_stroke_dark"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:id="@+id/layout_history_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <View
+                            android:layout_width="4dp"
+                            android:layout_height="18dp"
+                            android:background="@color/dashboard_accent"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="CPU 温度趋势"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_on_dark"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="实时"
+                            android:textSize="11sp"
+                            android:textColor="@color/dashboard_accent"
+                            android:background="#20FF7043"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="2dp" />
+
+                    </LinearLayout>
+
+                    <com.example.deviceinfoviewer.widget.HistoryChartView
+                        android:id="@+id/chart_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <!-- 圆形进度 + 电量% -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pb_battery_circle"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    app:indicatorColor="@color/primary"
+                    app:trackColor="@color/divider"
+                    app:indicatorSize="100dp"
+                    app:trackThickness="6dp"
+                    app:indicatorDirectionCircular="clockwise" />
+
+                <TextView
+                    android:id="@+id/tv_battery_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/na"
+                    android:textSize="48sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary"
+                    android:fontFamily="sans-serif-medium" />
+
+            </FrameLayout>
+
+            <!-- 充电状态 -->
+            <TextView
+                android:id="@+id/tv_charge_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/na"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 电池详情 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="温度:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_batt_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="电压:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_voltage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="电流:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_current"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="充电功率:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_charge_power"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="放电功率:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_discharge_power"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="健康:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_health"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="技术:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_technology"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider"
+                        android:layout_marginHorizontal="12dp"
+                        android:layout_marginVertical="4dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="充电器:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_charger_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="最大充电电流:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_max_charge_current"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="最大充电电压:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_max_charge_voltage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 电池容量 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="当前容量:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_capacity_now"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="设计容量:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_capacity_design"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="健康度:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_health_pct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/cb_dual_cell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="双电芯电池"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="8dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 循环次数 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_cycle_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/na"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="次"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 功率历史图表 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="功率历史"
+                        android:textSize="14sp"
+                        android:textColor="@color/primary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp" />
+
+                    <com.example.deviceinfoviewer.widget.HistoryChartView
+                        android:id="@+id/chart_power"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.DeviceInfoViewer" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorOnBackground">@color/text_on_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/text_on_dark</item>
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/background_dark</item>
+    </style>
+
+    <style name="DashboardCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">12dp</item><item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/card_bg_dark</item>
+        <item name="strokeColor">@color/card_stroke_dark</item>
+        <item name="strokeWidth">1dp</item><item name="contentPadding">14dp</item>
+    </style>
+    <style name="CardTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text_on_dark_secondary</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="CardValue" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textColor">@color/cpu_color</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="LabelText" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/text_on_dark_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+    <style name="SectionHeader" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="DetailRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+    </style>
+    <style name="DetailLabel">
+        <item name="android:textColor">@color/text_on_dark_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <style name="DetailValue">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">end</item>
+    </style>
+    <style name="ChartTitle">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="ChipLabel">
+        <item name="android:textColor">@color/text_on_dark_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+    <style name="ChipValue">
+        <item name="android:textColor">@color/text_on_dark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="TabTextAppearance" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="textAllCaps">false</item>
+    </style>
+</resources>

@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Wi-Fi -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wi-Fi"
+                android:textSize="14sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:id="@+id/wifi_info_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="SSID:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_ssid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="BSSID:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_bssid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="信号:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_signal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="速率:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="IPv4:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_ipv4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="IPv6:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_ipv6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="MAC:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_mac"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="网关:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_gateway"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="DNS:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_wifi_dns"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 分隔线 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 移动网络 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="移动网络"
+                android:textSize="14sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:id="@+id/mobile_info_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="类型:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_mobile_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="运营商:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_mobile_operator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="信号:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_mobile_signal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="漫游:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_mobile_roaming"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 分隔线 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 网络接口 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="网络接口"
+                android:textSize="14sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_net_interfaces"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+            <!-- 分隔线 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 卫星定位 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="卫星定位"
+                android:textSize="14sp"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="16dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_background">
+
+                <LinearLayout
+                    android:id="@+id/gps_status_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="状态:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_gps_enabled"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="经度:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_gps_longitude"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="纬度:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_gps_latitude"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="精度:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_gps_accuracy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="卫星数:"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_gps_satellites"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/na"
+                            android:textColor="@color/primary"
+                            android:textSize="14sp"
+                            android:fontFamily="sans-serif-medium" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_satellites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

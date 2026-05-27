@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- 核心名称 -->
+    <TextView
+        android:id="@+id/tv_core_name"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="核心0"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/text_primary" />
+
+    <!-- 频率 + 进度条 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <TextView
+            android:id="@+id/tv_core_freq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/na"
+            android:textSize="14sp"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary" />
+
+        <ProgressBar
+            android:id="@+id/pb_core_freq"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="4dp"
+            android:max="100"
+            android:progress="0" />
+
+    </LinearLayout>
+
+    <!-- 调速器 -->
+    <TextView
+        android:id="@+id/tv_core_gov"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/na"
+        android:textSize="12sp"
+        android:textColor="@color/text_secondary"
+        android:gravity="end" />
+
+</LinearLayout>
