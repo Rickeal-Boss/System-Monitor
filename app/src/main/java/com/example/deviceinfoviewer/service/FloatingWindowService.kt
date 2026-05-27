@@ -72,7 +72,6 @@ class FloatingWindowService : Service() {
 
         settings = AppSettings.getInstance(this)
         windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        repository?.startMonitoring(1000)
         handler = Handler(Looper.getMainLooper())
 
         // 启动前台通知
@@ -86,6 +85,12 @@ class FloatingWindowService : Service() {
         tvCpuFreq = floatingView?.findViewById(R.id.tv_float_cpu_freq)
         tvBattery = floatingView?.findViewById(R.id.tv_float_battery)
         tvRam = floatingView?.findViewById(R.id.tv_float_ram)
+
+        // 初始占位文本
+        tvCpuTemp?.text = "CPU: 加载中..."
+        tvCpuFreq?.text = "频率: -- MHz"
+        tvBattery?.text = "电池: --%"
+        tvRam?.text = "RAM: --%"
 
         // 设置透明度
         floatingView?.alpha = settings.floatingWindowOpacity
@@ -167,6 +172,12 @@ class FloatingWindowService : Service() {
         }
 
         floatingView?.let { windowManager?.addView(it, params) }
+
+        // 立即刷新 + 延迟三次重试确保数据到达
+        refreshData()
+        handler.postDelayed({ refreshData() }, 800)
+        handler.postDelayed({ refreshData() }, 1600)
+        handler.postDelayed({ refreshData() }, 2400)
 
         // 定时刷新
         startRefresh()
