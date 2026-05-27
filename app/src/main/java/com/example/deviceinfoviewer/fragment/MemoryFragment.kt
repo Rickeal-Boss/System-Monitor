@@ -92,8 +92,8 @@ class MemoryFragment : Fragment() {
 
             repo ?: return
 
-            repo!!.getMemoryLiveData().observe(viewLifecycleOwner) { mem ->
-                if (mem != null && mem.getTotalKB() > 0) updateMemoryInfo(mem)
+            repo!!.memoryLiveData.observe(viewLifecycleOwner) { mem ->
+                if (mem != null && mem.totalKB > 0) updateMemoryInfo(mem)
             }
 
             handler = Handler(Looper.getMainLooper())
@@ -126,9 +126,9 @@ class MemoryFragment : Fragment() {
     }
 
     private fun updateMemoryInfo(mem: MemoryInfo) {
-        val totalKB = mem.getTotalKB()
-        val usedKB = mem.getUsedKB()
-        val availKB = mem.getAvailableKB()
+        val totalKB = mem.totalKB
+        val usedKB = mem.usedKB
+        val availKB = mem.availableKB
         val totalBytes = totalKB * 1024L
         val usedBytes = usedKB * 1024L
         val availBytes = availKB * 1024L
@@ -144,10 +144,10 @@ class MemoryFragment : Fragment() {
         }
 
         // ZRAM
-        val zramOrigKB = mem.getZramOriginalKB()
-        val zramUsedKB = mem.getZramMemUsedTotalKB()
-        val zramCompKB = mem.getZramCompressedKB()
-        val compRatio = mem.getCompressionRatio()
+        val zramOrigKB = mem.zramOriginalKB
+        val zramUsedKB = mem.zramMemUsedTotalKB
+        val zramCompKB = mem.zramCompressedKB
+        val compRatio = mem.compressionRatio
 
         if (zramOrigKB > 0) {
             val zramPct = (zramUsedKB.toFloat() / zramOrigKB * 100).toInt()
@@ -169,8 +169,8 @@ class MemoryFragment : Fragment() {
         }
 
         // Swap
-        val swapTotalKB = mem.getSwapTotalKB()
-        val swapUsedKB = mem.getSwapUsedKB()
+        val swapTotalKB = mem.swapTotalKB
+        val swapUsedKB = mem.swapUsedKB
         if (swapTotalKB > 0) {
             val swapPct = (swapUsedKB.toFloat() / swapTotalKB * 100).toInt()
             tvSwapTitle?.text = FormatUtils.formatBytes(swapUsedKB * 1024L)
@@ -188,11 +188,11 @@ class MemoryFragment : Fragment() {
 
     private fun updateCharts() {
         repo ?: return
-        val mem = repo!!.getMemoryLiveData().value ?: return
-        if (mem.getTotalKB() <= 0) return
+        val mem = repo!!.memoryLiveData.value ?: return
+        if (mem.totalKB <= 0) return
         val now = System.currentTimeMillis()
-        val availGB = mem.getAvailableKB() * 1024f / (1024f * 1024f * 1024f)
-        val usedGB = mem.getUsedKB() * 1024f / (1024f * 1024f * 1024f)
+        val availGB = mem.availableKB * 1024f / (1024f * 1024f * 1024f)
+        val usedGB = mem.usedKB * 1024f / (1024f * 1024f * 1024f)
         chartMemAvailable?.addDataPoint(now, availGB)
         chartMemUsed?.addDataPoint(now, usedGB)
     }

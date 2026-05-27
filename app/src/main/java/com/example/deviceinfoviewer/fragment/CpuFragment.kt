@@ -95,7 +95,7 @@ class CpuFragment : Fragment() {
 
             repo ?: return
 
-            repo!!.getCpuLiveData().observe(viewLifecycleOwner) { cpu ->
+            repo!!.cpuLiveData.observe(viewLifecycleOwner) { cpu ->
                 cpu?.let {
                     updateCpuInfo(it)
                     updateTempStatus(it)
@@ -132,12 +132,12 @@ class CpuFragment : Fragment() {
     }
 
     private fun updateCpuInfo(cpu: CpuInfo) {
-        val arch = cpu.getArchitecture()
+        val arch = cpu.architecture
         val model = if (!arch.isNullOrEmpty()) arch else "未知处理器"
         tvCpuModel?.text = model
 
         val spec = buildString {
-            append(cpu.getCoreCount()).append(" 核心")
+            append(cpu.coreCount).append(" 核心")
             if (!arch.isNullOrEmpty()) append(" · ").append(arch)
         }
         tvCpuSpec?.text = spec
@@ -145,7 +145,7 @@ class CpuFragment : Fragment() {
 
     private fun updateTempStatus(cpu: CpuInfo) {
         tvTempStatus ?: return
-        val temp = cpu.getTemperatureCelsius()
+        val temp = cpu.temperatureCelsius
         if (temp.isNaN()) {
             tvTempStatus!!.text = "未知"
             tvTempStatus!!.setTextColor(COLOR_TEXT_SECONDARY_DARK)
@@ -162,7 +162,7 @@ class CpuFragment : Fragment() {
     }
 
     private fun updateCoreViews(cpu: CpuInfo) {
-        val cores = cpu.getCores() ?: return
+        val cores = cpu.cores ?: return
         if (cores.isEmpty()) return
         val ctx = context ?: return
 
@@ -198,11 +198,11 @@ class CpuFragment : Fragment() {
                 val item = inflater.inflate(R.layout.item_cpu_core_bar, pcv, false)
 
                 item.findViewById<TextView>(R.id.tv_core_name)?.apply {
-                    text = "核心 ${core.getCoreIndex()}"
+                    text = "核心 ${core.coreIndex}"
                     setTextColor(COLOR_TEXT_PRIMARY_DARK)
                 }
                 item.findViewById<TextView>(R.id.tv_core_freq)?.apply {
-                    text = FormatUtils.formatFreq(core.getCurrentFreqKHz())
+                    text = FormatUtils.formatFreq(core.currentFreqKHz)
                     setTextColor(COLOR_TEXT_SECONDARY_DARK)
                 }
                 item.findViewById<View>(R.id.view_core_bar_bg)?.apply {
@@ -210,15 +210,15 @@ class CpuFragment : Fragment() {
                 }
 
                 item.findViewById<View>(R.id.view_core_bar_fill)?.let { barFill ->
-                    var ratio = if (core.getMaxFreqKHz() > 0)
-                        core.getCurrentFreqKHz().toFloat() / core.getMaxFreqKHz() else 0f
+                    var ratio = if (core.maxFreqKHz > 0)
+                        core.currentFreqKHz.toFloat() / core.maxFreqKHz else 0f
                     ratio = min(ratio, 1.0f)
                     var maxW = pcv.width - dpToPx(160)
                     if (maxW <= 0) maxW = dpToPx(200)
                     val lp = barFill.layoutParams
                     lp.width = (maxW * ratio).toInt()
                     barFill.layoutParams = lp
-                    barFill.setBackgroundColor(getFreqColor(core.getCurrentFreqKHz()))
+                    barFill.setBackgroundColor(getFreqColor(core.currentFreqKHz))
                 }
                 pcv.addView(item)
             }
@@ -264,13 +264,13 @@ class CpuFragment : Fragment() {
         for (c in cores) {
             var key: Long? = null
             for (k in map.keys) {
-                if (abs(k - c.getMaxFreqKHz()) <= 100000L) {
+                if (abs(k - c.maxFreqKHz) <= 100000L) {
                     key = k
                     break
                 }
             }
             if (key == null) {
-                key = c.getMaxFreqKHz()
+                key = c.maxFreqKHz
                 map[key] = mutableListOf()
             }
             map[key]!!.add(c)
@@ -282,8 +282,8 @@ class CpuFragment : Fragment() {
         var sum = 0L
         var cnt = 0
         for (c in cores) {
-            if (c.getCurrentFreqKHz() > 0) {
-                sum += c.getCurrentFreqKHz()
+            if (c.currentFreqKHz > 0) {
+                sum += c.currentFreqKHz
                 cnt++
             }
         }

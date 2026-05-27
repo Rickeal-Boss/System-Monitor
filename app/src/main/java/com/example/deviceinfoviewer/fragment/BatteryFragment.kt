@@ -83,7 +83,7 @@ class BatteryFragment : Fragment() {
 
             repo ?: return
 
-            repo!!.getBatteryLiveData().observe(viewLifecycleOwner) { bat ->
+            repo!!.batteryLiveData.observe(viewLifecycleOwner) { bat ->
                 bat?.let { updateBatteryInfo(it) }
             }
 
@@ -116,23 +116,23 @@ class BatteryFragment : Fragment() {
     }
 
     private fun updateBatteryInfo(bat: BatteryInfo) {
-        val level = bat.getLevelPercent()
+        val level = bat.levelPercent
         tvBatteryPercent?.text = if (level >= 0) "$level%" else "N/A"
         pbBattery?.progress = max(0, level)
 
-        val status = bat.getChargeStatus()
+        val status = bat.chargeStatus
         tvBatteryStatus?.text = if (!status.isNullOrEmpty()) status else "未知"
 
-        val cycles = bat.getCycleCount()
+        val cycles = bat.cycleCount
         tvCycleCount?.text = if (cycles > 0) "$cycles 次" else "N/A"
 
-        val nowCap = if (bat.getChargeFullMAh() > 0) bat.getChargeFullMAh() else bat.getCapacityNowMAh()
+        val nowCap = if (bat.chargeFullMAh > 0) bat.chargeFullMAh else bat.capacityNowMAh
         tvCapacity?.text = if (nowCap > 0) "$nowCap mAh" else "N/A"
 
-        val voltage = bat.getEffectiveVoltage()
+        val voltage = bat.effectiveVoltage
         tvVoltage?.text = if (voltage > 0) "$voltage mV" else "N/A"
 
-        val currentUA = bat.getCurrentNowUA()
+        val currentUA = bat.currentNowUA
         tvCurrent?.text = when {
             currentUA > 0 -> String.format("+%.0f mA", currentUA / 1000.0)
             currentUA < 0 -> String.format("%.0f mA", abs(currentUA) / 1000.0)

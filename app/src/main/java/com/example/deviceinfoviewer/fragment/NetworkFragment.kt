@@ -30,7 +30,7 @@ class NetworkFragment : Fragment() {
 
     companion object {
         private const val TAG = "NetworkFragment"
-        private const val COLOR_NETWORK = 0xFF26C6DA.toInt()   // 网络青色
+        private const val COLOR_NETWORK = 0xFF26C6DA.toInt()
     }
 
     private var repo: DeviceRepository? = null
@@ -86,7 +86,6 @@ class NetworkFragment : Fragment() {
             recyclerSatellites = view.findViewById(R.id.recycler_satellites)
             recyclerNetInterfaces = view.findViewById(R.id.recycler_net_interfaces)
 
-            // 网络青色主题图表
             chartNetActivity?.apply {
                 setChartColor(COLOR_NETWORK)
                 setValueFormat("%.0f", " KB/s")
@@ -103,11 +102,11 @@ class NetworkFragment : Fragment() {
                 adapter = netInterfaceAdapter
             }
 
-            repo ?: return
-            repo!!.getWifiLiveData().observe(viewLifecycleOwner) { updateWifi(it) }
-            repo!!.getMobileNetworkLiveData().observe(viewLifecycleOwner) { updateMobile(it) }
-            repo!!.getGpsLiveData().observe(viewLifecycleOwner) { updateGps(it) }
-            repo!!.getNetworkInterfacesLiveData().observe(viewLifecycleOwner) { interfaces ->
+            val r = repo ?: return
+            r.wifiLiveData.observe(viewLifecycleOwner) { updateWifi(it) }
+            r.mobileNetworkLiveData.observe(viewLifecycleOwner) { updateMobile(it) }
+            r.gpsLiveData.observe(viewLifecycleOwner) { updateGps(it) }
+            r.networkInterfacesLiveData.observe(viewLifecycleOwner) { interfaces ->
                 netInterfaceAdapter?.setInterfaces(interfaces)
             }
         } catch (e: Exception) {
@@ -117,28 +116,28 @@ class NetworkFragment : Fragment() {
 
     private fun updateWifi(wifi: WifiDetailInfo?) {
         wifi ?: return
-        tvWifiSsid?.text = wifi.getSsid()?.takeIf { it.isNotEmpty() } ?: "未连接 WiFi"
-        tvWifiSignal?.text = FormatUtils.formatDbm(wifi.getSignalDbm())
-        tvWifiSpeed?.text = if (wifi.getLinkSpeedMbps() > 0) "${wifi.getLinkSpeedMbps()} Mbps" else "N/A"
-        tvWifiIp?.text = wifi.getIpv4()?.takeIf { it.isNotEmpty() } ?: ""
+        tvWifiSsid?.text = wifi.ssid?.takeIf { it.isNotEmpty() } ?: "未连接 WiFi"
+        tvWifiSignal?.text = FormatUtils.formatDbm(wifi.signalDbm)
+        tvWifiSpeed?.text = if (wifi.linkSpeedMbps > 0) "${wifi.linkSpeedMbps} Mbps" else "N/A"
+        tvWifiIp?.text = wifi.ipv4?.takeIf { it.isNotEmpty() } ?: ""
     }
 
     private fun updateMobile(mobile: MobileNetworkInfo?) {
         mobile ?: return
-        tvMobileType?.text = mobile.getNetworkType()?.takeIf { it.isNotEmpty() } ?: "N/A"
-        tvMobileOperator?.text = mobile.getOperatorName()?.takeIf { it.isNotEmpty() } ?: "N/A"
-        tvMobileSignal?.text = FormatUtils.formatDbm(mobile.getSignalStrengthDbm())
-        tvMobileRoaming?.text = if (mobile.isRoaming()) "是" else "否"
+        tvMobileType?.text = mobile.networkType?.takeIf { it.isNotEmpty() } ?: "N/A"
+        tvMobileOperator?.text = mobile.operatorName?.takeIf { it.isNotEmpty() } ?: "N/A"
+        tvMobileSignal?.text = FormatUtils.formatDbm(mobile.signalStrengthDbm)
+        tvMobileRoaming?.text = if (mobile.isRoaming) "是" else "否"
     }
 
     private fun updateGps(gps: GpsStatusInfo?) {
         gps ?: return
-        tvGpsEnabled?.text = if (gps.isGpsEnabled()) (if (gps.isFixAcquired()) "已定位" else "未定位") else "未启用"
-        tvGpsSatellites?.text = gps.getSatelliteCount().toString()
-        if (!gps.getLatitude().isNaN() && !gps.getLongitude().isNaN()) {
-            tvGpsCoord?.text = String.format(Locale.US, "%.6f, %.6f", gps.getLatitude(), gps.getLongitude())
+        tvGpsEnabled?.text = if (gps.gpsEnabled) (if (gps.fixAcquired) "已定位" else "未定位") else "未启用"
+        tvGpsSatellites?.text = gps.satelliteCount.toString()
+        if (!gps.latitude.isNaN() && !gps.longitude.isNaN()) {
+            tvGpsCoord?.text = String.format(Locale.US, "%.6f, %.6f", gps.latitude, gps.longitude)
         }
-        satelliteAdapter?.setSatellites(gps.getSatellites())
+        satelliteAdapter?.setSatellites(gps.satellites)
     }
 
     private class SatelliteAdapter : RecyclerView.Adapter<SatelliteAdapter.VH>() {
@@ -146,7 +145,7 @@ class NetworkFragment : Fragment() {
 
         fun setSatellites(s: List<GpsSatelliteInfo>?) {
             satellites.clear()
-            if (s != null) satellites.addAll(s)
+            s?.let { satellites.addAll(it) }
             notifyDataSetChanged()
         }
 
@@ -156,19 +155,19 @@ class NetworkFragment : Fragment() {
 
         override fun onBindViewHolder(holder: VH, position: Int) {
             val sat = satellites[position]
-            val con = sat.getConstellation()
+            val con = sat.constellation
             holder.tvSatFlag.text = getSymbol(con)
             holder.tvSatName.text =
-                (if (sat.getPrn() >= 0) "PRN ${sat.getPrn()}" else "") +
+                (if (sat.prn >= 0) "PRN ${sat.prn}" else "") +
                         (if (!con.isNullOrEmpty()) " | $con" else "")
             val d = StringBuilder()
-            if (!sat.getSnr().isNaN()) d.append("SNR ").append(String.format(Locale.US, "%.0f", sat.getSnr())).append("dB")
-            if (!sat.getElevation().isNaN()) d.append(" ").append(String.format(Locale.US, "%.0f", sat.getElevation())).append("°")
-            holder.tvSatDetail.text = if (d.isNotEmpty()) d.toString() else "N/A"
+            if (!sat.snr.isNaN()) d.append("SNR ").append(String.format(Locale.US, "%.0f", sat.snr)).append("dB")
+            if (!sat.elevation.isNaN()) d.append(" ").append(String.format(Locale.US, "%.0f", sat.elevation)).append("°")
+            holder.tvSatDetail.text = d.toString().ifEmpty { "N/A" }
 
-            if (!sat.getSnr().isNaN()) {
-                holder.tvSatSnr.text = String.format(Locale.US, "%.0fdB", sat.getSnr())
-                val snr = sat.getSnr()
+            if (!sat.snr.isNaN()) {
+                holder.tvSatSnr.text = String.format(Locale.US, "%.0fdB", sat.snr)
+                val snr = sat.snr
                 val cr = when {
                     snr >= 35 -> R.color.status_good
                     snr >= 25 -> R.color.status_warning

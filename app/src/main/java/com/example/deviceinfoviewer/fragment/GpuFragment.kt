@@ -87,7 +87,7 @@ class GpuFragment : Fragment() {
 
             repo ?: return
 
-            repo!!.getGpuLiveData().observe(viewLifecycleOwner) { gpu ->
+            repo!!.gpuLiveData.observe(viewLifecycleOwner) { gpu ->
                 gpu?.let { updateGpuInfo(it) }
             }
 
@@ -120,14 +120,14 @@ class GpuFragment : Fragment() {
     }
 
     private fun updateGpuInfo(gpu: GpuInfo) {
-        var model: String? = gpu.getModel()
-        if (model.isNullOrEmpty()) model = gpu.getVendor()
+        var model: String? = gpu.model
+        if (model.isNullOrEmpty()) model = gpu.vendor
         if (model.isNullOrEmpty()) model = "未知 GPU"
         tvGpuModel?.text = model
 
         val headerInfo = StringBuilder()
-        if (gpu.getFrequencyKHz() > 0) headerInfo.append(FormatUtils.formatFreq(gpu.getFrequencyKHz()))
-        val load = gpu.getLoadPercentage()
+        if (gpu.frequencyKHz > 0) headerInfo.append(FormatUtils.formatFreq(gpu.frequencyKHz))
+        val load = gpu.loadPercentage
         if (!load.isNaN()) {
             if (headerInfo.isNotEmpty()) headerInfo.append(" · ")
             headerInfo.append(String.format("%.0f%%", load))
@@ -136,17 +136,17 @@ class GpuFragment : Fragment() {
 
         tvGpuLoad?.text = if (load.isNaN()) "N/A" else String.format("%.0f%%", load)
 
-        val temp = gpu.getTemperatureCelsius()
+        val temp = gpu.temperatureCelsius
         tvGpuTemp?.text = if (temp.isNaN()) "N/A" else FormatUtils.formatTempCelsius(temp)
 
-        tvGpuVendor?.text = gpu.getVendor()?.takeIf { it.isNotEmpty() } ?: "N/A"
-        tvGpuRenderer?.text = gpu.getRenderer()?.takeIf { it.isNotEmpty() } ?: "N/A"
-        tvGpuGovernor?.text = gpu.getGovernor()?.takeIf { it.isNotEmpty() } ?: "N/A"
+        tvGpuVendor?.text = gpu.vendor?.takeIf { it.isNotEmpty() } ?: "N/A"
+        tvGpuRenderer?.text = gpu.renderer?.takeIf { it.isNotEmpty() } ?: "N/A"
+        tvGpuGovernor?.text = gpu.governor?.takeIf { it.isNotEmpty() } ?: "N/A"
 
-        tvGpuFreq?.text = if (gpu.getFrequencyKHz() > 0) FormatUtils.formatFreq(gpu.getFrequencyKHz()) else "N/A"
+        tvGpuFreq?.text = if (gpu.frequencyKHz > 0) FormatUtils.formatFreq(gpu.frequencyKHz) else "N/A"
 
-        val range = if (gpu.getMinFreqKHz() > 0 && gpu.getMaxFreqKHz() > 0) {
-            "${FormatUtils.formatFreq(gpu.getMinFreqKHz())} - ${FormatUtils.formatFreq(gpu.getMaxFreqKHz())}"
+        val range = if (gpu.minFreqKHz > 0 && gpu.maxFreqKHz > 0) {
+            "${FormatUtils.formatFreq(gpu.minFreqKHz)} - ${FormatUtils.formatFreq(gpu.maxFreqKHz)}"
         } else ""
         tvGpuFreqRange?.text = range.ifEmpty { "N/A" }
     }

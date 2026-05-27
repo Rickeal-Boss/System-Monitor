@@ -126,15 +126,10 @@ object PermissionHelper {
             .show()
     }
 
-    fun hasLocationPermission(activity: Activity): Boolean {
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED
-    }
+    fun hasLocationPermission(activity: Activity): Boolean =
+        ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
-    fun hasPhonePermission(activity: Activity): Boolean {
-        return ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE)
-                == PackageManager.PERMISSION_GRANTED
-    }
+    fun hasPhonePermission(activity: Activity): Boolean =
+        ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
 }

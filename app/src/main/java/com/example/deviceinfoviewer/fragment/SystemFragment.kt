@@ -22,7 +22,7 @@ import com.example.deviceinfoviewer.data.model.StorageInfo
 import com.example.deviceinfoviewer.data.repository.DeviceRepository
 
 /**
- * 系统 Fragment — Build.* 参数 + 内核/JVM + 存储分区，直接观察 Repository LiveData
+ * 系统 Fragment — Build.* 参数 + 内核/JVM + 存储分区
  */
 class SystemFragment : Fragment() {
 
@@ -36,7 +36,7 @@ class SystemFragment : Fragment() {
     private var partitionsContainer: LinearLayout? = null
     private var swipeRefresh: SwipeRefreshLayout? = null
 
-    private val allBuildParams = mutableListOf<MutableMap.MutableEntry<String, String>>()
+    private val allBuildParams = mutableListOf<Map.Entry<String, String>>()
     private var currentFilter = ""
 
     override fun onCreateView(
@@ -60,10 +60,8 @@ class SystemFragment : Fragment() {
         partitionsContainer = view.findViewById(R.id.partitions_container)
         swipeRefresh = view.findViewById(R.id.swipe_refresh)
 
-        // 搜索过滤
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 currentFilter = newText?.lowercase()?.trim() ?: ""
                 rebuildBuildParamsView()
@@ -71,48 +69,38 @@ class SystemFragment : Fragment() {
             }
         })
 
-        repo ?: return
+        val r = repo ?: return
 
-        // 观察系统信息 LiveData
-        repo!!.getSystemLiveData().observe(viewLifecycleOwner) { sys ->
+        r.systemLiveData.observe(viewLifecycleOwner) { sys ->
             sys ?: return@observe
 
-            // 内核版本
-            val kernel = sys.getKernelVersion()
-            tvKernel?.text = kernel?.takeIf { it.isNotEmpty() } ?: "N/A"
+            tvKernel?.text = sys.kernelVersion.takeIf { it.isNotEmpty() } ?: "N/A"
 
-            // Java VM
-            val vmName = sys.getJavaRuntimeName()
-            val vmVer = sys.getJavaVmVersion()
+            val vmName = sys.javaRuntimeName
+            val vmVer = sys.javaVmVersion
             tvJvm?.text = when {
-                !vmName.isNullOrEmpty() -> vmName + if (!vmVer.isNullOrEmpty()) " $vmVer" else ""
-                !vmVer.isNullOrEmpty() -> vmVer
+                vmName.isNotEmpty() -> vmName + if (vmVer.isNotEmpty()) " $vmVer" else ""
+                vmVer.isNotEmpty() -> vmVer
                 else -> "N/A"
             }
 
-            // Bootloader
-            val bootloader = sys.getBootloader()
-            tvBootloader?.text = bootloader?.takeIf { it.isNotEmpty() } ?: "N/A"
+            tvBootloader?.text = sys.bootloader.takeIf { it.isNotEmpty() } ?: "N/A"
 
-            // Build 参数
             allBuildParams.clear()
-            sys.getBuildFields()?.let { fields ->
-                allBuildParams.addAll(fields.entries)
-            }
+            allBuildParams.addAll(sys.buildFields.entries)
             rebuildBuildParamsView()
         }
 
-        // 观察存储信息 LiveData
-        repo!!.getStorageLiveData().observe(viewLifecycleOwner) { sto ->
+        r.storageLiveData.observe(viewLifecycleOwner) { sto ->
             sto ?: return@observe
             partitionsContainer?.let { container ->
                 container.removeAllViews()
                 val inflater = LayoutInflater.from(context)
-                for (p in sto.getPartitions()) {
+                for (p in sto.partitions) {
                     val row = createDetailRow(
                         inflater,
-                        p.getMountPoint(),
-                        "总 ${FormatUtils.formatBytes(p.getTotalBytes())} / 可用 ${FormatUtils.formatBytes(p.getAvailableBytes())}"
+                        p.mountPoint,
+                        "总 ${FormatUtils.formatBytes(p.totalBytes)} / 可用 ${FormatUtils.formatBytes(p.availableBytes)}"
                     )
                     container.addView(row)
                 }
@@ -125,26 +113,19 @@ class SystemFragment : Fragment() {
         }
     }
 
-    /**
-     * 根据当前过滤词重建 Build 参数视图
-     */
     private fun rebuildBuildParamsView() {
         buildParamsContainer?.let { container ->
             container.removeAllViews()
             val inflater = LayoutInflater.from(context)
             for (entry in allBuildParams) {
-                if (currentFilter.isNotEmpty()) {
-                    if (!entry.key.lowercase().contains(currentFilter)
-                        && !entry.value.lowercase().contains(currentFilter)
-                    ) {
-                        continue
-                    }
-                }
+                if (currentFilter.isNotEmpty() &&
+                    !entry.key.lowercase().contains(currentFilter) &&
+                    !entry.value.lowercase().contains(currentFilter)
+                ) continue
+
                 val row = createDetailRow(inflater, "${entry.key}:", entry.value)
-                val key = entry.key
-                val value = entry.value
                 row.setOnLongClickListener {
-                    val text = "$key = $value"
+                    val text = "${entry.key} = ${entry.value}"
                     val cm = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     cm.setPrimaryClip(ClipData.newPlainText("system_info", text))
                     Toast.makeText(requireContext(), R.string.copy_toast, Toast.LENGTH_SHORT).show()
@@ -155,9 +136,6 @@ class SystemFragment : Fragment() {
         }
     }
 
-    /**
-     * 创建一个 detail_row（标签: 值）行
-     */
     private fun createDetailRow(inflater: LayoutInflater, label: String, value: String): View {
         val row = LinearLayout(context).apply {
             layoutParams = LinearLayout.LayoutParams(
@@ -193,8 +171,6 @@ class SystemFragment : Fragment() {
         return row
     }
 
-    private fun dpToPx(dp: Int): Int {
-        val density = resources.displayMetrics.density
-        return (dp * density + 0.5f).toInt()
-    }
+    private fun dpToPx(dp: Int): Int =
+        (dp * resources.displayMetrics.density + 0.5f).toInt()
 }

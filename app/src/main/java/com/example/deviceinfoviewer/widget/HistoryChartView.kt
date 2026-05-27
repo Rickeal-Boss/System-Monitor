@@ -46,7 +46,7 @@ class HistoryChartView @JvmOverloads constructor(
         lineChart.isDragEnabled = true
         lineChart.isScaleXEnabled = true
         lineChart.isScaleYEnabled = true
-        lineChart.isPinchZoomEnabled = true
+        lineChart.setPinchZoom(true)
         lineChart.setDrawGridBackground(false)
 
         val xAxis = lineChart.xAxis

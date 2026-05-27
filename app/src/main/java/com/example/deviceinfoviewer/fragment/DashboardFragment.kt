@@ -81,44 +81,44 @@ class DashboardFragment : Fragment() {
         repo ?: return
 
         // CPU
-        repo!!.getCpuLiveData().observe(viewLifecycleOwner) { cpu ->
+        repo!!.cpuLiveData.observe(viewLifecycleOwner) { cpu ->
             cpu ?: return@observe
-            tvCpuTemp?.text = FormatUtils.formatTempCelsius(cpu.getTemperatureCelsius())
+            tvCpuTemp?.text = FormatUtils.formatTempCelsius(cpu.temperatureCelsius)
             var maxFreq = 0L
-            for (core in cpu.getCores()) {
-                if (core.getCurrentFreqKHz() > maxFreq) maxFreq = core.getCurrentFreqKHz()
+            for (core in cpu.cores) {
+                if (core.currentFreqKHz > maxFreq) maxFreq = core.currentFreqKHz
             }
             tvCpuFreq?.text = if (maxFreq > 0) FormatUtils.formatFreq(maxFreq) else "N/A"
         }
 
         // GPU
-        repo!!.getGpuLiveData().observe(viewLifecycleOwner) { gpu ->
+        repo!!.gpuLiveData.observe(viewLifecycleOwner) { gpu ->
             gpu ?: return@observe
-            var gpuText = FormatUtils.formatTempCelsius(gpu.getTemperatureCelsius())
-            if (!gpu.getLoadPercentage().isNaN() && gpu.getLoadPercentage() > 0) {
-                gpuText += " | ${String.format("%.0f%%", gpu.getLoadPercentage())}"
+            var gpuText = FormatUtils.formatTempCelsius(gpu.temperatureCelsius)
+            if (!gpu.loadPercentage.isNaN() && gpu.loadPercentage > 0) {
+                gpuText += " | ${String.format("%.0f%%", gpu.loadPercentage)}"
             }
             tvGpuTemp?.text = gpuText
         }
 
         // 电池
-        repo!!.getBatteryLiveData().observe(viewLifecycleOwner) { bat ->
+        repo!!.batteryLiveData.observe(viewLifecycleOwner) { bat ->
             bat ?: return@observe
-            tvBatteryLevel?.text = if (bat.getLevelPercent() >= 0) "${bat.getLevelPercent()}%" else "N/A"
-            tvBatteryTemp?.text = FormatUtils.formatTempCelsius(bat.getTemperatureCelsius())
+            tvBatteryLevel?.text = if (bat.levelPercent >= 0) "${bat.levelPercent}%" else "N/A"
+            tvBatteryTemp?.text = FormatUtils.formatTempCelsius(bat.temperatureCelsius)
         }
 
         // 内存
-        repo!!.getMemoryLiveData().observe(viewLifecycleOwner) { mem ->
-            if (mem == null || mem.getTotalKB() <= 0) {
+        repo!!.memoryLiveData.observe(viewLifecycleOwner) { mem ->
+            if (mem == null || mem.totalKB <= 0) {
                 tvRamUsage?.text = "N/A"
                 tvRamDetail?.text = "N/A"
                 pbRam?.progress = 0
                 return@observe
             }
-            val pct = (mem.getUsedKB().toFloat() / mem.getTotalKB() * 100).toInt()
-            tvRamUsage?.text = FormatUtils.formatBytes(mem.getUsedKB() * 1024L)
-            tvRamDetail?.text = "$pct% | ${FormatUtils.formatBytes(mem.getTotalKB() * 1024L)} 总"
+            val pct = (mem.usedKB.toFloat() / mem.totalKB * 100).toInt()
+            tvRamUsage?.text = FormatUtils.formatBytes(mem.usedKB * 1024L)
+            tvRamDetail?.text = "$pct% | ${FormatUtils.formatBytes(mem.totalKB * 1024L)} 总"
             pbRam?.apply {
                 progress = pct
                 progressTintList = getProgressColor(pct)
@@ -126,16 +126,16 @@ class DashboardFragment : Fragment() {
         }
 
         // 存储
-        repo!!.getStorageLiveData().observe(viewLifecycleOwner) { sto ->
-            if (sto == null || sto.getInternalTotalBytes() <= 0) {
+        repo!!.storageLiveData.observe(viewLifecycleOwner) { sto ->
+            if (sto == null || sto.internalTotalBytes <= 0) {
                 tvStorageUsage?.text = "N/A"
                 tvStorageDetail?.text = "N/A"
                 pbStorage?.progress = 0
                 return@observe
             }
-            val pct = (sto.getInternalUsedBytes().toFloat() / sto.getInternalTotalBytes() * 100).toInt()
-            tvStorageUsage?.text = FormatUtils.formatBytes(sto.getInternalUsedBytes())
-            tvStorageDetail?.text = "$pct% | ${FormatUtils.formatBytes(sto.getInternalTotalBytes())} 总"
+            val pct = (sto.internalUsedBytes.toFloat() / sto.internalTotalBytes * 100).toInt()
+            tvStorageUsage?.text = FormatUtils.formatBytes(sto.internalUsedBytes)
+            tvStorageDetail?.text = "$pct% | ${FormatUtils.formatBytes(sto.internalTotalBytes)} 总"
             pbStorage?.apply {
                 progress = pct
                 progressTintList = getProgressColor(pct)
@@ -193,25 +193,25 @@ class DashboardFragment : Fragment() {
     }
 
     private fun showZramDialog() {
-        val memory: MemoryInfo = repo?.getMemoryLiveData()?.value ?: return
+        val memory: MemoryInfo = repo?.memoryLiveData?.value ?: return
         val msg = buildString {
             append("原始数据: ").append(
-                if (memory.getZramOriginalKB() > 0) FormatUtils.formatBytes(memory.getZramOriginalKB() * 1024L) else "N/A"
+                if (memory.zramOriginalKB > 0) FormatUtils.formatBytes(memory.zramOriginalKB * 1024L) else "N/A"
             ).append("\n")
             append("压缩后: ").append(
-                if (memory.getZramCompressedKB() > 0) FormatUtils.formatBytes(memory.getZramCompressedKB() * 1024L) else "N/A"
+                if (memory.zramCompressedKB > 0) FormatUtils.formatBytes(memory.zramCompressedKB * 1024L) else "N/A"
             ).append("\n")
             append("实际占用: ").append(
-                if (memory.getZramMemUsedTotalKB() > 0) FormatUtils.formatBytes(memory.getZramMemUsedTotalKB() * 1024L) else "N/A"
+                if (memory.zramMemUsedTotalKB > 0) FormatUtils.formatBytes(memory.zramMemUsedTotalKB * 1024L) else "N/A"
             ).append("\n")
             append("压缩比: ").append(
-                if (memory.getCompressionRatio() > 0) String.format("%.2f:1", memory.getCompressionRatio()) else "N/A"
+                if (memory.compressionRatio > 0) String.format("%.2f:1", memory.compressionRatio) else "N/A"
             ).append("\n\n")
             append("Swap 总量: ").append(
-                if (memory.getSwapTotalKB() > 0) FormatUtils.formatBytes(memory.getSwapTotalKB() * 1024L) else "N/A"
+                if (memory.swapTotalKB > 0) FormatUtils.formatBytes(memory.swapTotalKB * 1024L) else "N/A"
             ).append("\n")
             append("Swap 已用: ").append(
-                if (memory.getSwapUsedKB() > 0) FormatUtils.formatBytes(memory.getSwapUsedKB() * 1024L) else "N/A"
+                if (memory.swapUsedKB > 0) FormatUtils.formatBytes(memory.swapUsedKB * 1024L) else "N/A"
             )
         }
         AlertDialog.Builder(requireContext())

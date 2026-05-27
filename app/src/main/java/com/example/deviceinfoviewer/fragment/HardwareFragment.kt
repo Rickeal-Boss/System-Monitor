@@ -76,25 +76,25 @@ class HardwareFragment : Fragment() {
         repo ?: return
 
         // 观察 CPU LiveData
-        repo!!.getCpuLiveData().observe(viewLifecycleOwner) { cpu ->
+        repo!!.cpuLiveData.observe(viewLifecycleOwner) { cpu ->
             cpu ?: return@observe
             val container = cpuCoresContainer ?: return@observe
             container.removeAllViews()
             val inflater = LayoutInflater.from(context)
-            for (core in cpu.getCores()) {
+            for (core in cpu.cores) {
                 val row = inflater.inflate(R.layout.item_cpu_core, container, false)
-                row.findViewById<TextView>(R.id.tv_core_name)?.text = "核心 ${core.getCoreIndex()}"
+                row.findViewById<TextView>(R.id.tv_core_name)?.text = "核心 ${core.coreIndex}"
 
-                val freqText = if (core.getCurrentFreqKHz() > 0)
-                    FormatUtils.formatFreq(core.getCurrentFreqKHz()) else "N/A"
+                val freqText = if (core.currentFreqKHz > 0)
+                    FormatUtils.formatFreq(core.currentFreqKHz) else "N/A"
                 row.findViewById<TextView>(R.id.tv_core_freq)?.text = freqText
 
                 row.findViewById<TextView>(R.id.tv_core_gov)?.text =
-                    core.getGovernor()?.takeIf { it.isNotEmpty() } ?: "N/A"
+                    core.governor?.takeIf { it.isNotEmpty() } ?: "N/A"
 
                 val pbFreq = row.findViewById<ProgressBar>(R.id.pb_core_freq)
-                if (core.getMaxFreqKHz() > 0 && core.getCurrentFreqKHz() > 0) {
-                    var pct = (core.getCurrentFreqKHz() * 100 / core.getMaxFreqKHz()).toInt()
+                if (core.maxFreqKHz > 0 && core.currentFreqKHz > 0) {
+                    var pct = (core.currentFreqKHz * 100 / core.maxFreqKHz).toInt()
                     pct = minOf(pct, 100)
                     pbFreq.progress = pct
                     pbFreq.progressTintList =
@@ -108,35 +108,35 @@ class HardwareFragment : Fragment() {
         }
 
         // 观察 GPU LiveData
-        repo!!.getGpuLiveData().observe(viewLifecycleOwner) { gpu ->
+        repo!!.gpuLiveData.observe(viewLifecycleOwner) { gpu ->
             gpu ?: return@observe
-            tvGpuModel?.text = gpu.getModel()?.takeIf { it.isNotEmpty() } ?: "N/A"
-            tvGpuVendor?.text = gpu.getVendor()?.takeIf { it.isNotEmpty() } ?: "N/A"
-            tvGpuFreq?.text = if (gpu.getFrequencyKHz() > 0)
-                FormatUtils.formatFreq(gpu.getFrequencyKHz()) else "N/A"
-            tvGpuTemp?.text = FormatUtils.formatTempCelsius(gpu.getTemperatureCelsius())
+            tvGpuModel?.text = gpu.model?.takeIf { it.isNotEmpty() } ?: "N/A"
+            tvGpuVendor?.text = gpu.vendor?.takeIf { it.isNotEmpty() } ?: "N/A"
+            tvGpuFreq?.text = if (gpu.frequencyKHz > 0)
+                FormatUtils.formatFreq(gpu.frequencyKHz) else "N/A"
+            tvGpuTemp?.text = FormatUtils.formatTempCelsius(gpu.temperatureCelsius)
 
             // 负载
-            tvGpuLoad?.text = if (!gpu.getLoadPercentage().isNaN() && gpu.getLoadPercentage() > 0)
-                String.format("%.1f%%", gpu.getLoadPercentage()) else "N/A"
+            tvGpuLoad?.text = if (!gpu.loadPercentage.isNaN() && gpu.loadPercentage > 0)
+                String.format("%.1f%%", gpu.loadPercentage) else "N/A"
 
             // 频率范围
             val freqRange = buildString {
-                if (gpu.getMinFreqKHz() > 0) append(FormatUtils.formatFreq(gpu.getMinFreqKHz())) else append("?")
+                if (gpu.minFreqKHz > 0) append(FormatUtils.formatFreq(gpu.minFreqKHz)) else append("?")
                 append(" ~ ")
-                if (gpu.getMaxFreqKHz() > 0) append(FormatUtils.formatFreq(gpu.getMaxFreqKHz())) else append("?")
+                if (gpu.maxFreqKHz > 0) append(FormatUtils.formatFreq(gpu.maxFreqKHz)) else append("?")
             }
             tvGpuFreqRange?.text = freqRange
 
             // 调速器
-            tvGpuGovernor?.text = gpu.getGovernor()?.takeIf { it.isNotEmpty() } ?: "N/A"
+            tvGpuGovernor?.text = gpu.governor?.takeIf { it.isNotEmpty() } ?: "N/A"
 
             // 渲染器
-            tvGpuRenderer?.text = gpu.getRenderer()?.takeIf { it.isNotEmpty() } ?: "N/A"
+            tvGpuRenderer?.text = gpu.renderer?.takeIf { it.isNotEmpty() } ?: "N/A"
         }
 
         // 观察传感器 LiveData（一次性加载）
-        repo!!.getSensorsLiveData().observe(viewLifecycleOwner) { sensors ->
+        repo!!.sensorsLiveData.observe(viewLifecycleOwner) { sensors ->
             sensorAdapter?.setSensors(sensors)
         }
 
