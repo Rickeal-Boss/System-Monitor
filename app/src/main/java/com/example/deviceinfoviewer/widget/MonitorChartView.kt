@@ -78,7 +78,7 @@ class MonitorChartView @JvmOverloads constructor(
                 err.text = "图表加载失败"
                 err.setTextColor(COLOR_TEXT_SECONDARY)
                 err.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                val p = dp(16, ctx)
+                val p: Int = dp(16, ctx)
                 err.setPadding(p, p, p, p)
                 addView(err)
             } catch (_: Throwable) {}
@@ -89,8 +89,8 @@ class MonitorChartView @JvmOverloads constructor(
         val headerRow = LinearLayout(ctx).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            val p4 = dp(4, ctx)
-            val p2 = dp(2, ctx)
+            val p4: Int = dp(4, ctx)
+            val p2: Int = dp(2, ctx)
             setPadding(p4, p4, p4, p2)
         }
 
@@ -118,7 +118,7 @@ class MonitorChartView @JvmOverloads constructor(
     private fun buildChart(ctx: Context): LineChart =
         LineChart(ctx).apply {
             id = View.generateViewId()
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp(130, ctx))
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dp(130, ctx).toInt())
             addView(this)
         }
 
