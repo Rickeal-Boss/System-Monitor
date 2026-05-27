@@ -1,0 +1,35 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# App build outputs
+/app/build
+/app/release
+
+# Gradle wrapper (keep jar + properties, ignore dist)
+!gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties.bak
+
+# Android Studio
+*.apk
+*.aab
+*.dex
+*.class
+bin/
+gen/
+out/
+.navigation/
+*.log
+
+# OS files
+Thumbs.db
+*.swp
+*.swo
+*~
