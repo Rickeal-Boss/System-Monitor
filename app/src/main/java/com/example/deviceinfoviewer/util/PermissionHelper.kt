@@ -81,6 +81,26 @@ object PermissionHelper {
             .show()
     }
 
+    /**
+     * 引导用户开启悬浮窗权限（跳转系统设置）
+     */
+    fun requestOverlayPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AlertDialog.Builder(activity)
+                .setTitle("需要悬浮窗权限")
+                .setMessage("用于在其他应用上方显示设备信息悬浮窗。")
+                .setPositiveButton("去设置") { _, _ ->
+                    val intent = Intent(
+                        Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:${activity.packageName}")
+                    )
+                    activity.startActivityForResult(intent, 200)
+                }
+                .setNegativeButton("取消", null)
+                .show()
+        }
+    }
+
     private fun requestOverlayPermission(activity: Activity, onGranted: Runnable, callback: PermissionCallback) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(activity)) {
             onGranted.run()

@@ -1,14 +1,20 @@
 package com.example.deviceinfoviewer
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.example.deviceinfoviewer.service.FloatingWindowService
+import com.example.deviceinfoviewer.util.PermissionHelper
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        // Toolbar + edge-to-edge insets
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "System Monitor"
@@ -36,7 +41,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // ViewPager2 + TabLayout (防递归互锁)
         val vp = findViewById<ViewPager2>(R.id.view_pager)
         val tl = findViewById<TabLayout>(R.id.tab_layout)
         vp.adapter = TabPagerAdapter(this)
@@ -65,12 +69,45 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // 延迟启动监控
         Handler(Looper.getMainLooper()).postDelayed({
             DeviceApplication.getDeviceRepository()?.apply {
                 startMonitoring(2000L)
                 loadStaticData()
             }
         }, 500)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_floating_window -> {
+                requestOverlayPermissionAndStart()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun requestOverlayPermissionAndStart() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                PermissionHelper.requestOverlayPermission(this)
+                return
+            }
+        }
+        startFloatingWindow()
+    }
+
+    private fun startFloatingWindow() {
+        val intent = Intent(this, FloatingWindowService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(intent)
+        } else {
+            startService(intent)
+        }
     }
 }

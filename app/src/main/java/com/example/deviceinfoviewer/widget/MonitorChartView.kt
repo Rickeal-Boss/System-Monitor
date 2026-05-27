@@ -112,12 +112,13 @@ class MonitorChartView @JvmOverloads constructor(
         return title
     }
 
-    private fun buildChart(ctx: Context): LineChart =
-        LineChart(ctx).apply {
-            id = View.generateViewId()
-            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, (130f * ctx.resources.displayMetrics.density).toInt())
-            addView(this)
-        }
+    private fun buildChart(ctx: Context): LineChart {
+        val chart = LineChart(ctx)
+        chart.id = View.generateViewId()
+        chart.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, (130f * ctx.resources.displayMetrics.density).toInt())
+        addView(chart)
+        return chart
+    }
 
     private fun findCurrentValueView(): TextView? {
         try {
